@@ -2,97 +2,102 @@ require 'spec_helper'
 
 require 'doctor-swagger'
 
-module Rspec
-  module Swagger
-  	swagger_version 'some crazy version'
-  	api_version '3.0'
-  	base_path       'https://example.com/api'
 
-  	swagger_resource '/products' do
-  	  endpoint '/products' do
-  	    description 'Products'
+describe 'The Swagger documentation' do
 
-  	    operation :index do
-  	      header_parameter :api_key do
-  	        description 'The api key issued to your app'
-  	        required!
-  	        type :string
-  	      end
+  it 'accurately describes the API' do
+    module Rspec::Swagger
+      include DoctorSwagger
+    	swagger_version 'some crazy version'
+    	api_version '3.0'
+    	base_path       'https://example.com/api'
 
-  	      query_parameter :category_id do
-  	        description 'The category id of the products you want'
-  	        required!
-  	        type :integer
-  	      end
+    	swagger_resource '/products' do
+    	  endpoint '/products' do
+    	    description 'Products'
 
-  	      method :get
-  	      notes 'Returns lots of products'
+    	    operation :index do
+    	      header_parameter :api_key do
+    	        description 'The api key issued to your app'
+    	        required!
+    	        type :string
+    	      end
 
-  	      type '[product]'
-  	      internal_type '[Product]'
+    	      query_parameter :category_id do
+    	        description 'The category id of the products you want'
+    	        required!
+    	        type :integer
+    	      end
 
-  	      standard_errors
-  	      error 418, "im_a_teapot"
+    	      method :get
+    	      notes 'Returns lots of products'
 
-  	      embeds :category, :variants
-  	      scopes 'read-inventory', 'other-scope'
-  	      summary 'Find products by category id'
-  	    end
-  	  end
+    	      type '[product]'
+    	      internal_type '[Product]'
 
-  	  endpoint '/products/{product_id}' do
-  	    description 'Show product'
+    	      standard_errors
+    	      error 418, "im_a_teapot"
 
-  	    operation :show do
-  	      path_parameter :product_id do
-  	        description 'The product id of the product you want'
-  	        required!
-  	        type :integer
-  	      end
+    	      embeds :category, :variants
+    	      scopes 'read-inventory', 'other-scope'
+    	      summary 'Find products by category id'
+    	    end
+    	  end
 
-  	      method :get
-  	      notes 'Returns a product'
+    	  endpoint '/products/{product_id}' do
+    	    description 'Show product'
 
-  	      type 'product'
-  	      internal_type 'Product'
+    	    operation :show do
+    	      path_parameter :product_id do
+    	        description 'The product id of the product you want'
+    	        required!
+    	        type :integer
+    	      end
 
-  	      standard_errors
-  	      embeds :category, :variants
-  	      scopes 'read-inventory', 'other-scope'
-  	      summary 'Find product by product id'
-  	    end
+    	      method :get
+    	      notes 'Returns a product'
 
-  	    operation :update do
-  	      path_parameter :product_id do
-  	        description 'The product id of the product you want'
-  	        required!
-  	        type :integer
-  	      end
+    	      type 'product'
+    	      internal_type 'Product'
 
-  	      post_body do
-  	        description 'The JSON representation of the product'
-  	        required!
+    	      standard_errors
+    	      embeds :category, :variants
+    	      scopes 'read-inventory', 'other-scope'
+    	      summary 'Find product by product id'
+    	    end
 
-  	        example 'product' => {
-  	          'foo' => 'bar',
-  	          'wat' => nil
-  	        }
-  	      end
+    	    operation :update do
+    	      path_parameter :product_id do
+    	        description 'The product id of the product you want'
+    	        required!
+    	        type :integer
+    	      end
 
-  	      method :put
-  	      notes <<-EOS
-  	# Updates a *product*
-  	EOS
+    	      post_body do
+    	        description 'The JSON representation of the product'
+    	        required!
 
-  	      type 'product'
-  	      internal_type 'Product'
+    	        example 'product' => {
+    	          'foo' => 'bar',
+    	          'wat' => nil
+    	        }
+    	      end
 
-  	      standard_errors
-  	      scopes 'read-inventory', 'other-scope'
-  	      summary 'Update product by product id'
-  	    end
-  	  end
-  	end
+    	      method :put
+    	      notes <<-EOS
+    	# Updates a *product*
+    	EOS
+
+    	      type 'product'
+    	      internal_type 'Product'
+
+    	      standard_errors
+    	      scopes 'read-inventory', 'other-scope'
+    	      summary 'Update product by product id'
+    	    end
+    	  end
+    	end
+    end
   end
 end
 require 'json'
