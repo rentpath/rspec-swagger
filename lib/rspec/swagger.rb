@@ -10,6 +10,18 @@ module Rspec
     base_path       'https://example.com/api'
 
     swagger_resource '/products' do
+      models({
+        "Product" => {
+          "id" => "Product",
+          "properties" => {
+            "product_id" => {
+              "type" => "integer",
+              "format" => "int64"
+            }
+          }
+        }
+      })
+
       endpoint '/products' do
         description 'Products'
 

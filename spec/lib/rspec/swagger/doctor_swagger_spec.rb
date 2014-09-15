@@ -8,6 +8,7 @@ describe Rspec::Swagger do
       'swaggerVersion' => 'some crazy version',
       'basePath' => "https://example.com/api",
       'resourcePath' => '/products',
+      'models' => {"Product"=>{"id"=>"Product", "properties"=>{"product_id"=>{"type"=>"integer", "format"=>"int64"}}}},
       'apis' => [
         {
           'path' => '/products',
