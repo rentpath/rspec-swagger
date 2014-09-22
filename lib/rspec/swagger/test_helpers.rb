@@ -16,8 +16,12 @@ module Rspec
 
         resource_jsons.each do |resource_json|
           resource_json["apis"].each do |api|
-            get api["path"]
-            puts "#{api['path']}: #{last_response.status}"
+            begin
+              get api["path"]
+              puts "#{api['path']}: #{last_response.status}"
+            rescue URI::InvalidURIError
+              # TODO Try to test trickier URLs, such as /{channel}/{state}/cities
+            end
           end
         end
       end
