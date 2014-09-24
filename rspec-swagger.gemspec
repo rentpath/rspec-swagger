@@ -9,10 +9,10 @@ RAKEFILE = 'Rakefile'
 Gem::Specification.new do |spec|
   spec.name          = "rspec-swagger"
   spec.version       = Rspec::Swagger::VERSION
-  spec.authors       = ["Colin Rymer"]
-  spec.email         = ["colin.rymer@gmail.com"]
-  spec.summary       = %q{Generate Swagger docs from your specs.}
-  spec.description   = %q{Generate Swagger docs from your specs.}
+  spec.authors       = ["Colin Rymer", "Tyler Boyd", 'David Cole']
+  spec.email         = ["colin.rymer@gmail.com", "tboyd47@gmail.com", 'davidhcole@gmail.com']
+  spec.summary       = %q{Create Swagger docs and test them in your specs.}
+  spec.description   = %q{Create Swagger docs and test them in your specs.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
