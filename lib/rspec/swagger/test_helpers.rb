@@ -1,29 +1,19 @@
 module Rspec
   module Swagger
     module TestHelpers
+      include RoutesWithNoRequiredParams
+
+      # test_api_correctness()
+      #
+      # Tests the correctness of the Swagger-formatted docs stored
+      # in the docs/swagger.json and docs/*.json files. You can either
+      # run this method for all of the tests, or pick and choose from
+      # the tests referenced in this method.
       def test_api_correctness
-        root_json = JSON.parse(File.read("docs/swagger.json"))
+        @loader = SwaggerLoader.new
+        @formatter = Formatter.new
 
-        resource_jsons = root_json["apis"].map do |api|
-          path = "#{api['path']}.json"
-
-          if File.exists?("docs" + path)
-            JSON.parse(File.read("docs" + path))
-          else
-            raise "file not found: docs#{path}"
-          end
-        end
-
-        resource_jsons.each do |resource_json|
-          resource_json["apis"].each do |api|
-            begin
-              get api["path"]
-              puts "#{api['path']}: #{last_response.status}"
-            rescue URI::InvalidURIError
-              # TODO Try to test trickier URLs, such as /{channel}/{state}/cities
-            end
-          end
-        end
+        test_200_for_routes_with_no_required_parameters
       end
     end
   end
