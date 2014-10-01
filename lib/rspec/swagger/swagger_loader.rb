@@ -16,8 +16,6 @@ module Rspec
 
         @root.freeze
         @resources.freeze
-
-        @operations = {}
       end
 
       attr_reader :root, :resources
