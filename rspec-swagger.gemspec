@@ -11,8 +11,8 @@ Gem::Specification.new do |spec|
   spec.version       = Rspec::Swagger::VERSION
   spec.authors       = ["Colin Rymer"]
   spec.email         = ["colin.rymer@gmail.com"]
-  spec.summary       = %q{Generate Swagger docs from your specs.}
-  spec.description   = %q{Generate Swagger docs from your specs.}
+  spec.summary       = %q{Test Swagger-documented APIs automatically.}
+  spec.description   = %q{Test Swagger-documented APIs automatically.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -24,6 +24,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+
+  spec.add_dependency "colorize"
 
   Gem.post_install do
     if File.exists? RAKEFILE
