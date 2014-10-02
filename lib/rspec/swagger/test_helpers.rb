@@ -2,6 +2,7 @@ module Rspec
   module Swagger
     module TestHelpers
       include RoutesWithNoRequiredParams
+      include RoutesWithSampleValues
 
       # test_api_correctness()
       #
@@ -14,6 +15,7 @@ module Rspec
         @formatter = Formatter.new
 
         test_200_for_routes_with_no_required_parameters
+        test_sample_values_for_path_params_on_get_routes
       end
     end
   end
