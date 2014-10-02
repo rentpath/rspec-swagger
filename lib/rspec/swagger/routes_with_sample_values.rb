@@ -9,8 +9,8 @@ module Rspec
                 api_with_values = api.clone
 
                 operation["parameters"].each do |param|
-                  if param_has_sample_value(param, code)
-                    api_with_values = api_with_values.gsub("{#{param['name']}}", param["sampleValues"][code])
+                  if sample_value = sample_value_from_param(param, code)
+                    api_with_values = api_with_values.gsub("{#{param['name']}}", sample_value)
                   end
                 end
 
@@ -43,9 +43,21 @@ module Rspec
 
       private
 
-      def param_has_sample_value(param, code)
-        param["sampleValues"].respond_to?(:has_key?) &&
+      def sample_value_from_param(param, code)
+        has_sample_values_hash = param["sampleValues"].respond_to?(:has_key?) &&
           param["sampleValues"].has_key?(code.to_s)
+
+        if has_sample_values_hash
+          if param["sampleValues"][code.to_s].respond_to?(:has_key?)
+            param["sampleValues"][code.to_s][environment]
+          else
+            param["sampleValues"][code.to_s]
+          end
+        end
+      end
+
+      def environment
+        ENV["ENVIRONMENT"] || "development"
       end
     end
   end
