@@ -19,7 +19,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+##### RSpec
+
+Place your Swagger documentation in docs/swagger.json and docs/*.json. Then,
+drop the following in a test file in your test suite:
+
+```ruby
+require 'spec_helper'
+
+describe Rspec::Swagger do
+  include Rspec::Swagger::TestHelpers
+
+  it "should describe the api" do
+    test_api_correctness
+  end
+end
+```
+
+This gem is designed for use with [rack-swagger](http://www.github.com/rentpath/rack-swagger).
 
 ## Contributing
 
